@@ -44,5 +44,5 @@ admin.site.register(Wishlist)
 
 
 class UserAddressBookAdmin(admin.ModelAdmin):
-	list_display=('user','address','status','mobile','postal_code','country')
+	list_display=('user','user_name','address','status','mobile','postal_code','country')
 admin.site.register(UserAddressBook,UserAddressBookAdmin)

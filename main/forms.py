@@ -18,7 +18,7 @@ class ReviewAdd(forms.ModelForm):
 class AddressBookForm(forms.ModelForm):
 	class Meta:
 		model=UserAddressBook
-		fields=('address','mobile','status','postal_code','country')
+		fields=('user_name','address','mobile','status','postal_code','country')
 
 # ProfileEdit
 class ProfileForm(UserChangeForm):
