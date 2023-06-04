@@ -1,0 +1,21 @@
+a {
+	text-decoration: none !important;
+	color: black;
+}
+
+.focused{
+	outline: 0 !important;
+    box-shadow: 0 0 0 0.2rem rgb(0 123 255 / 25%) !important;
+}
+
+.errorlist li{
+	color: red;
+}
+
+h6 {
+	text-align: right;
+}
+
+.text-right {
+	text-align: right;
+}

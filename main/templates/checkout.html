@@ -1,0 +1,91 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<main class="container my-4" id="cartList">
+	<!-- Featured Products -->
+	<div class="row">
+		<div class="col-md-9">
+			<h3 class="my-4 border-bottom pb-1">Keranjang Belanja ({{totalitems}})</h3>
+			<table class="table table-bordered">
+		<thead>
+			<tr>
+				<th>Product</th>
+				<th>Qty</th>
+				<th>Price</th>
+				<th>Total</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for product_id,item in cart_data.items %}
+			<tr>
+				<td>
+					<img src="/media/{{item.image}}" width="50" />
+					<p><a href="/product/{{item.title|slugify}}/{{product_id}}">{{item.title}}</a></p>
+				</td>
+				<td>
+					{{item.qty}}
+				</td>
+				<td>${{item.price}}</td>
+				<td>${% widthratio item.price 1 item.qty %}</td>
+			</tr>
+			{% endfor %}
+		</tbody>
+		<tfoot>
+			{% if discount %}
+			<tr>
+				<th colspan="2" class="text-right">Anda telah menghemat ${{hemat}}</th>
+				<th>Harga Diskon</th>
+				<th>${{discount}}</th>
+			</tr>
+			{% else %}
+			<tr>
+				<td colspan="2"></td>
+				<th>Total</th>
+				<th>${{total_amt}}</th>
+			</tr>
+			{% endif %}
+			{% if totalitems %}
+			<tr>
+				<td colspan="4" align="right">
+					{{form.render}}
+				</td>
+			</tr>
+			{% endif %}
+		</tfoot>
+	</table>
+		</div>
+		<div class="col-md-3">
+			<h3 class="my-4 border-bottom pb-1">Alamat</h3>
+			<div class="card">
+				<div class="card-body">
+					{% if address is empty %}
+						<p>Belum ada data alamat. Silakan isi di Akun Saya.</p>
+					{% else %}
+						<p>Nama Penerima : {{address.user}}</p>
+						<p>Alamat : {{address.address}}</p>
+						<p>No Telp : {{address.mobile}}</p>
+						<p>Kode Pos : {{address.postal_code}}</p>
+						<p>Negara : {{address.country}}</p>
+					{% endif %}
+				</div>
+			</div>
+			<h3 class="border-bottom">Masukkan Coupon</h3>
+			<div class="card">
+				<form method="POST">
+					{% include 'alert.html' %}
+					{% csrf_token %}
+					<div class="form-group">
+						<div class="input-group">
+						<input type="text" name="coupon" class="form-control" placeholder="Coupon Code">
+						<span class="input-group-append">
+							<button type="submit" class="btn btn-info">Apply</button>
+						</span>
+						</div>
+					</div>
+					<!-- <a href="" class="btn btn-success">{{ item.coupon.coupon_code }}</a> -->
+				</form>
+			</div>
+		</div>
+	</div>
+</main>
+{% endblock %}

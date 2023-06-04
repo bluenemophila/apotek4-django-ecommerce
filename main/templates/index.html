@@ -1,0 +1,121 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<!-- Home Slider -->
+<div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+  <ol class="carousel-indicators">
+    {% for banner in banners %}
+    {% if forloop.counter == 1 %}
+    <li data-target="#carouselExampleIndicators" data-slide-to="{{forloop.counter}}" class="active"></li>
+    {% else %}
+    <li data-target="#carouselExampleIndicators" data-slide-to="{{forloop.counter}}"></li>
+    {% endif %}
+    {% endfor %}
+  </ol>
+  <div class="carousel-inner">
+    {% for banner in banners %}
+    {% if forloop.counter == 1 %}
+    <div class="carousel-item active">
+      {% else %}
+      <div class="carousel-item">
+      {% endif %}
+      <img src="/media/{{banner.img}}" class="d-block w-100" alt="...">
+    </div>
+    {% endfor %}
+  </div>
+  <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="sr-only">Previous</span>
+  </a>
+  <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="sr-only">Next</span>
+  </a>
+</div>
+</div>
+<main class="container my-4">
+	<!-- Featured Products -->
+	<h3 class="mt-5 mb-4 border-bottom pb-1">Produk Terlaris</h3>
+	<div class="row">
+    {% for product in data %}
+		<div class="col-md-3 mb-4">
+			<div class="card shadow">
+			  <a href="/product/{{product.slug}}/{{product.id}}"><img src="/media/{{product.productattribute_set.first.image}}" class="card-img-top" alt="{{product.title}}"></a>
+			  <div class="card-body">
+			    <h5 class="card-text"><a href="/product/{{product.slug}}/{{product.id}}">{{product.title}}</a></h5>
+          <h6>$<span class="product-price-{{product.id}}">{{product.productattribute_set.first.price}}</span></h6>
+			  </div>
+			  <div class="card-footer">
+          <!--{{product.productattribute_set.first.color.title}}-->
+          <input type="hidden" value="1" class="form-control product-qty-{{product.id}}" id="productQty" />
+          <input type="hidden" class="product-image-{{product.id}}" value="{{product.productattribute_set.first.image}}" />
+          <input type="hidden" class="product-id-{{product.id}}" value="{{product.id}}" />
+          <input type="hidden" class="product-title-{{product.id}}" value="{{product.title}}" />
+			  	<button class="btn btn-sm btn-primary add-to-cart" data-index="{{product.id}}"><i class="fa fa-shopping-cart"></i></button>
+          {% if user.is_authenticated %}
+			  	<button class="btn btn-sm btn-danger add-wishlist" data-product="{{product.id}}"><i class="fa fa-heart"></i></button>
+          {% else %}
+          <button class="btn btn-sm btn-danger disabled"><i class="fa fa-heart"></i></button>
+          {% endif %}
+			  	<span class="float-right">
+			  		5/5
+			  		<i class="fa fa-star text-warning"></i>
+			  	</span>
+			  </div>
+			</div>
+		</div>
+    {% endfor %}
+	</div>
+	<p class="mt-2 mb-5 text-center"><a href="{% url 'product-list' %}" class="btn btn-dark btn-sm">All Products <i class="fa fa-long-arrow-alt-right"></i></a></p>
+
+  <div class="mt-5">
+    <h3 class="my-4 border-bottom pb-1" style="color: #5CB4D8;">Apotek K4, Solusi Beli Obat Online Paling Komplit, Kapanpun, Dimanapun!</h3>
+  </div>
+  <div class="row" style="height: 250px;">
+    <div class="col-sm-8" style="margin: auto; text-align: justify;">
+      <p>Apotek K4 yang memiliki slogan “Asli, Komplit, Cepat” hadir sebagai Apotek Online pertama di Indonesia yang "benar-benar" buka 24 Jam non Stop dan terlengkap di Indonesia. Hal ini memudahkan masyarakat Indonesia mendapatkan obat kapan saja, di mana saja dengan cepat. Obat diantar oleh Apotek terdekat ke lokasi pasien. Ya, secara otomatis sistem menentukan Apotek terdekat untuk mengantar obat ke rumah/kantor/lokasi pasien.
+        <br><br>
+        Selain KOMPLIT ragam obatnya, Apotek K4 menjamin semua produk yang dibeli pada situs Apotek K4 adalah 100% ASLI. Pesanan pun langsung dapat dikirim dengan CEPAT karena dilayani oleh Apotek Mitra Apotek K4 dan Apotek K4 terdekat dengan alamat tujuan.</p>
+    </div>
+    <div class="col-sm-4" style="margin: auto;">
+      <img
+      src="../static/media/images/content2.png"
+      height="250px"
+      >
+    </div>
+  </div>
+
+  <div class="row mt-5">
+    <div class="card" style="border-color: #5CB4D8; width: 23%; margin-right: 2%;">
+      <img src="../static/media/images/content3.png" style="width:100%">
+      <div>
+        <h4 class="p-2" style="color: #5CB4D8;"><b><center>Aplikasi Obat Online Paling Komplit</center></b></h4>
+        <p class="p-3" style="height: 200px; text-align: justify;">Apotek K4 menyediakan berbagai kebutuhan kesehatan mulai dari obat, suplemen, perawatan tubuh, maupun alat kesehatan. Total 4000 barang tersedia di Apotek K4 untuk memenuhi kebutuhan Anda.</p>
+      </div>
+    </div>
+    <div class="card" style="border-color: #5CB4D8; width: 23%; margin-right: 2%;">
+      <img src="../static/media/images/content4.png" style="width:100%">
+      <div>
+        <h4 class="p-2" style="color: #5CB4D8;"><b><center>Lengkap Metode Pembayarannya</center></b></h4>
+        <p class="p-3" style="height: 200px; text-align: justify;">Tersedia berbagai metode pembayaran di Apotek K4 mulai dari pilihan membayar di tempat, melalui e-wallet, transfer bank, hingga pembayaran instan.</p>
+      </div>
+    </div>
+    <div class="card" style="border-color: #5CB4D8; width: 23%; margin-right: 2%;">
+      <img src="../static/media/images/content5.png" style="width:100%">
+      <div>
+        <h4 class="p-2" style="color: #5CB4D8;"><b><center>Pelayanan Obat dan Antar 24 Jam</center></b></h4>
+        <p class="p-3" style="height: 200px; text-align: justify;">Tidak perlu khawatir dengan ketersediaan layanan obat, Apotek 24 menyediakan layanan pemesanan obat 24 Jam. Apotek K4 juga siap melayani dan mengantarkan obat Anda.</p>
+      </div>
+    </div>
+    <div class="card" style="border-color: #5CB4D8; width: 23%;">
+      <img src="../static/media/images/content6.png" style="width:100%">
+      <div>
+        <h4 class="p-2" style="color: #5CB4D8;"><b><center>Tebus Resep Obat Tanpa Antri</center></b></h4>
+        <p class="p-3" style="height: 200px; text-align: justify;">Dengan fitur 'Unggah Resep' Anda dapat mengirimkan resep yang akan Anda tebus dan kami akan mengirimkannya dengan segera.</p>
+      </div>
+    </div>
+  </div>
+
+</main>
+
+{% endblock %}

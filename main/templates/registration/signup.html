@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<main class="container my-4">
+	<!-- Featured Products -->
+	<h3 class="my-4 border-bottom pb-1">Sign Up</h3>
+	<table class="table table-bordered">
+		<form method="post">
+			{% include 'alert.html' %}
+			{% csrf_token %}
+			{{ form.as_table }}
+			<tr>
+				<td colspan="2">
+					<input type="submit" value="Register" class="btn btn-primary" />
+				</td>
+			</tr>
+		</form>
+	</table>
+</main>
+{% endblock %}
