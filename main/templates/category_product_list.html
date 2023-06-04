@@ -19,7 +19,14 @@
 					  <a href="/product/{{product.slug}}/{{product.id}}"><img src="/media/{{product.productattribute_set.first.image}}" class="card-img-top" alt="{{product.title}}"></a>
 					  <div class="card-body">
 					    <h5 class="card-text"><a href="/product/{{product.slug}}/{{product.id}}">{{product.title}}</a></h5>
-					    <h6 class="price-text">$<span class="product-price-{{product.id}}">{{product.productattribute_set.first.price}}</span></h6>
+						{% if product.productattribute_set.first.discount %}
+						<span class="discount-text">
+						  <del>$<span class="product-price-{{product.id}}">{{product.productattribute_set.first.price}}</span></del>
+						</span>
+						<span class="discount-text">$<span class="product-discount-{{product.id}}">{{product.productattribute_set.first.discount}}</span></span>
+						{% else %}
+						<span class="price-text">$<span class="product-price-{{product.id}}">{{product.productattribute_set.first.price}}</span></span>
+						{% endif %}
 					  </div>
 					  	<div class="card-footer">
 				          <input type="hidden" value="1" class="form-control product-qty-{{product.id}}" id="productQty" />

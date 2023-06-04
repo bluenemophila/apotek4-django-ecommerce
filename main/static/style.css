@@ -14,8 +14,16 @@ a {
 
 .price-text {
 	text-align: right;
+	font-weight: bold;
+	font-size: 1.2em;
 }
 
 .text-right {
 	text-align: right;
+}
+
+.discount-text {
+	text-align: right;
+	font-weight: bold;
+	font-size: 1.2em;
 }

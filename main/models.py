@@ -88,7 +88,8 @@ class Product(models.Model):
 class ProductAttribute(models.Model):
     product=models.ForeignKey(Product,on_delete=models.CASCADE)
     size=models.ForeignKey(Size,on_delete=models.CASCADE)
-    price=models.PositiveIntegerField(default=0)
+    price=models.FloatField(default=0)
+    discount=models.FloatField(blank=True,null=True)
     image=models.ImageField(upload_to="product_imgs/",null=True)
 
     class Meta:
@@ -131,6 +132,7 @@ class CartOrderItems(models.Model):
     image=models.CharField(max_length=200)
     qty=models.IntegerField()
     price=models.FloatField()
+    discount=models.FloatField(blank=True,null=True)
     total=models.FloatField()
 
     class Meta:

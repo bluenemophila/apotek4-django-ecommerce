@@ -130,6 +130,7 @@ def add_to_cart(request):
 		'title':request.GET['title'],
 		'qty':request.GET['qty'],
 		'price':request.GET['price'],
+		#'diskon':request.GET['diskon',False]
 	}
 	if 'cartdata' in request.session:
 		if str(request.GET['id']) in request.session['cartdata']:
@@ -209,6 +210,8 @@ def checkout(request):
 	totalAmt=0
 	total_discounted=0
 	discount_price=0
+	diskon=0
+	diskon_amt=0
 	if 'cartdata' in request.session:
 		for p_id,item in request.session['cartdata'].items():
 			totalAmt+=int(item['qty'])*float(item['price'])
@@ -231,6 +234,9 @@ def checkout(request):
 				total=float(item['qty'])*float(item['price'])
 				)
 			# End
+			#diskon = ProductAttribute.objects.get(product = items.item)
+			#diskon_amt+=int(item['qty'])*float(diskon.discount)
+
 		if request.method == 'POST':
 			coupon = request.POST.get('coupon')
 			try :
@@ -270,7 +276,7 @@ def checkout(request):
 		}
 		form = PayPalPaymentsForm(initial=paypal_dict)
 		address=UserAddressBook.objects.filter(user=request.user,status=True).first()
-		return render(request, 'checkout.html',{'cart_data':request.session['cartdata'],'totalitems':len(request.session['cartdata']),'total_amt':total_amt,'form':form,'address':address, 'discount':total_discounted,'hemat':discount_price})
+		return render(request, 'checkout.html',{'cart_data':request.session['cartdata'],'totalitems':len(request.session['cartdata']),'total_amt':total_amt,'form':form,'address':address, 'discount':total_discounted,'hemat':discount_price, 'potongan':diskon_amt})
 
 @csrf_exempt
 def payment_done(request):

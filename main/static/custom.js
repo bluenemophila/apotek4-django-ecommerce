@@ -78,6 +78,8 @@ $(document).ready(function(){
 		var _productImage=$(".product-image-"+_index).val();
 		var _productTitle=$(".product-title-"+_index).val();
 		var _productPrice=$(".product-price-"+_index).text();
+		//var _productDiskon=$(".product-diskon-"+_index).text();
+
 		// Ajax
 		$.ajax({
 			url:'/add-to-cart',
@@ -86,7 +88,8 @@ $(document).ready(function(){
 				'image':_productImage,
 				'qty':_qty,
 				'title':_productTitle,
-				'price':_productPrice
+				'price':_productPrice,
+				//'diskon':_productDiskon
 			},
 			dataType:'json',
 			beforeSend:function(){

@@ -21,7 +21,7 @@ admin.site.register(Product,ProductAdmin)
 
 # Product Attribute
 class ProductAttributeAdmin(admin.ModelAdmin):
-    list_display=('id','image_tag','product','price','size')
+    list_display=('id','image_tag','product','price','discount','size')
 admin.site.register(ProductAttribute,ProductAttributeAdmin)
 
 # Order
@@ -31,7 +31,7 @@ class CartOrderAdmin(admin.ModelAdmin):
 admin.site.register(CartOrder,CartOrderAdmin)
 
 class CartOrderItemsAdmin(admin.ModelAdmin):
-	list_display=('invoice_no','item','image_tag','qty','price','total')
+	list_display=('invoice_no','item','image_tag','qty','price','discount','total')
 admin.site.register(CartOrderItems,CartOrderItemsAdmin)
 
 
