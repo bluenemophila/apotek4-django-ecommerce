@@ -15,7 +15,7 @@ class CategoryAdmin(admin.ModelAdmin):
 admin.site.register(Category,CategoryAdmin)
 
 class ProductAdmin(admin.ModelAdmin):
-    list_display=('id','title','category','brand','status','is_featured')
+    list_display=('id','title','category','brand', 'label','status','is_featured')
     list_editable=('status','is_featured')
 admin.site.register(Product,ProductAdmin)
 

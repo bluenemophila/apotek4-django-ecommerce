@@ -40,6 +40,16 @@ class Brand(models.Model):
     def __str__(self):
         return self.title
 
+# Label
+#class Label(models.Model):
+#    title=models.CharField(max_length=4)
+#
+#    class Meta:
+#        verbose_name_plural='4. Labels'
+#
+#    def __str__(self):
+#        return self.title
+
 # Size
 class Size(models.Model):
     title=models.CharField(max_length=100)
@@ -50,6 +60,11 @@ class Size(models.Model):
     def __str__(self):
         return self.title
 
+label_choice=(
+        ('NEW','primary'),
+        ('BEST','success'),
+        ('SALE','danger'),
+    )
 
 # Product Model
 class Product(models.Model):
@@ -59,6 +74,7 @@ class Product(models.Model):
     specs=models.TextField()
     category=models.ForeignKey(Category,on_delete=models.CASCADE)
     brand=models.ForeignKey(Brand,on_delete=models.CASCADE)
+    label=models.CharField(choices=label_choice,default='NEW',max_length=150)
     status=models.BooleanField(default=True)
     is_featured=models.BooleanField(default=False)
 

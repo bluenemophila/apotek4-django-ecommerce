@@ -66,6 +66,7 @@ def product_detail(request,slug,id):
 	product=Product.objects.get(id=id)
 	related_products=Product.objects.filter(category=product.category).exclude(id=id)[:4]
 	sizes=ProductAttribute.objects.filter(product=product).values('size__id','size__title','price').distinct()
+	#labels=Product.objects.filter(product=product).values('label__title').distinct()
 	reviewForm=ReviewAdd()
 
 	# Check
@@ -84,7 +85,7 @@ def product_detail(request,slug,id):
 	#avg_reviews=ProductReview.objects.filter(product=product).aggregate(avg_rating=Avg('review_rating'))
 	# End
 
-	return render(request, 'product_detail.html',{'data':product,'related':related_products,'sizes':sizes,'reviewForm':reviewForm,'canAdd':canAdd,'reviews':reviews})
+	return render(request, 'product_detail.html',{'data':product,'related':related_products,'sizes':sizes, 'reviewForm':reviewForm,'canAdd':canAdd,'reviews':reviews})
 
 # Search
 def search(request):
