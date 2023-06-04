@@ -415,3 +415,6 @@ def about_us(request):
 
 def alert(request):
     return render(request,'alert.html')
+
+def member(request):
+    return render(request,'member.html')

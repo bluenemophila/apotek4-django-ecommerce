@@ -44,6 +44,7 @@ urlpatterns=[
     path('edit-profile',views.edit_profile, name='edit-profile'),
     path('about-us',views.about_us,name='about-us'),
     path('alert',views.alert,name='alert'),
+    path('member',views.member,name='member'),
 ]
 
 if settings.DEBUG:
