@@ -92,16 +92,16 @@ class Coupon(models.Model):
 
 # Order
 status_choice=(
-        ('process','In Process'),
-        ('shipped','Shipped'),
-        ('delivered','Delivered'),
+        ('Diproses','In Process'),
+        ('Dikirim','Shipped'),
+        ('Diterima','Delivered'),
     )
 class CartOrder(models.Model):
     user=models.ForeignKey(User,on_delete=models.CASCADE)
     total_amt=models.FloatField()
     paid_status=models.BooleanField(default=False)
     order_dt=models.DateTimeField(auto_now_add=True)
-    order_status=models.CharField(choices=status_choice,default='process',max_length=150)
+    order_status=models.CharField(choices=status_choice,default='Diproses',max_length=150)
     coupon=models.ForeignKey(Coupon, on_delete=models.SET_NULL, null=True, blank=True)
 
     class Meta:
