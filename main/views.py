@@ -70,10 +70,10 @@ def product_detail(request,slug,id):
 
 	# Check
 	canAdd=True
-	reviewCheck=ProductReview.objects.filter(user=request.user,product=product).count()
-	if request.user.is_authenticated:
-		if reviewCheck > 0:
-			canAdd=False
+	#reviewCheck=ProductReview.objects.filter(user=request.user,product=product).count()
+	#if request.user.is_authenticated:
+	#	if reviewCheck > 0:
+	#		canAdd=False
 	# End
 
 	# Fetch reviews
@@ -81,10 +81,10 @@ def product_detail(request,slug,id):
 	# End
 
 	# Fetch avg rating for reviews
-	avg_reviews=ProductReview.objects.filter(product=product).aggregate(avg_rating=Avg('review_rating'))
+	#avg_reviews=ProductReview.objects.filter(product=product).aggregate(avg_rating=Avg('review_rating'))
 	# End
 
-	return render(request, 'product_detail.html',{'data':product,'related':related_products,'sizes':sizes,'reviewForm':reviewForm,'canAdd':canAdd,'reviews':reviews,'avg_reviews':avg_reviews})
+	return render(request, 'product_detail.html',{'data':product,'related':related_products,'sizes':sizes,'reviewForm':reviewForm,'canAdd':canAdd,'reviews':reviews})
 
 # Search
 def search(request):
@@ -249,10 +249,10 @@ def checkout(request):
 					total_discounted = total_amt - coupon_obj.discount_price
 					total_amt = total_discounted
 					discount_price = coupon_obj.discount_price
+					messages.success(request, 'Kupon berhasil digunakan.')
 
 				order.coupon = coupon_obj
 				order.save()
-				messages.success(request, 'Kupon berhasil digunakan.')
 			except :
 				messages.warning(request, 'Kode kupon tidak valid.')
 		# Process Payment
