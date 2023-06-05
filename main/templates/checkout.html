@@ -31,15 +31,15 @@
 			{% endfor %}
 		</tbody>
 		<tfoot>
-			{% if discount %}
+			{% if hemat %}
 			<tr>
-				<th colspan="2" class="text-right">Anda telah menghemat ${{hemat}}</th>
-				<th>Harga Diskon</th>
-				<th>${{discount}}</th>
+				<th class="text-right">Total Normal ${{total_normal}}</th>
+				<th><center><badge class="badge badge-danger rounded-pill d-inline">Anda telah menghemat ${{hemat}}</badge></center></th>
+				<th>Total</th>
+				<th>${{total_amt}}</th>
 			</tr>
 			{% else %}
 			<tr>
-				<td colspan="2"></td>
 				<th>Total</th>
 				<th>${{total_amt}}</th>
 			</tr>

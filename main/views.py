@@ -149,10 +149,17 @@ def add_to_cart(request):
 # Cart List Page
 def cart_list(request):
 	total_amt=0
+	potongan=0
+	harga_normal=0
+	total_normal=0
 	if 'cartdata' in request.session:
 		for p_id,item in request.session['cartdata'].items():
 			total_amt+=int(item['qty'])*float(item['price'])
-		return render(request, 'cart.html',{'cart_data':request.session['cartdata'],'totalitems':len(request.session['cartdata']),'total_amt':total_amt})
+			dataharga=ProductAttribute.objects.get(product_id=p_id)
+			total_normal+=float(dataharga.price)*int(item['qty'])
+			if dataharga.discount is not None:
+				potongan+=int(item['qty'])*float(dataharga.price-dataharga.discount)
+		return render(request, 'cart.html',{'cart_data':request.session['cartdata'],'totalitems':len(request.session['cartdata']),'total_amt':total_amt,'potongan':potongan,'total_normal':total_normal})
 	else:
 		return render(request, 'cart.html',{'cart_data':'','totalitems':0,'total_amt':total_amt})
 
@@ -212,6 +219,9 @@ def checkout(request):
 	discount_price=0
 	diskon=0
 	diskon_amt=0
+	total_normal=0
+	potongan=0
+	hemat=0
 	if 'cartdata' in request.session:
 		for p_id,item in request.session['cartdata'].items():
 			totalAmt+=int(item['qty'])*float(item['price'])
@@ -233,6 +243,10 @@ def checkout(request):
 				price=item['price'],
 				total=float(item['qty'])*float(item['price'])
 				)
+			dataharga=ProductAttribute.objects.get(product_id=p_id)
+			total_normal+=float(dataharga.price)*int(item['qty'])
+			if dataharga.discount is not None:
+				potongan+=int(item['qty'])*float(dataharga.price-dataharga.discount)
 			# End
 			#diskon = ProductAttribute.objects.get(product = items.item)
 			#diskon_amt+=int(item['qty'])*float(diskon.discount)
@@ -262,6 +276,7 @@ def checkout(request):
 				order.save()
 			except :
 				messages.warning(request, 'Kode kupon tidak valid.')
+		hemat = discount_price + potongan
 		# Process Payment
 		host = request.get_host()
 		paypal_dict = {
@@ -276,7 +291,7 @@ def checkout(request):
 		}
 		form = PayPalPaymentsForm(initial=paypal_dict)
 		address=UserAddressBook.objects.filter(user=request.user,status=True).first()
-		return render(request, 'checkout.html',{'cart_data':request.session['cartdata'],'totalitems':len(request.session['cartdata']),'total_amt':total_amt,'form':form,'address':address, 'discount':total_discounted,'hemat':discount_price, 'potongan':diskon_amt})
+		return render(request, 'checkout.html',{'cart_data':request.session['cartdata'],'totalitems':len(request.session['cartdata']),'total_amt':total_amt,'form':form,'address':address, 'discount':total_discounted,'hemat':hemat,'total_normal':total_normal})
 
 @csrf_exempt
 def payment_done(request):

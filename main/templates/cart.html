@@ -31,11 +31,18 @@
 			{% endfor %}
 		</tbody>
 		<tfoot>
+			{% if potongan %}
 			<tr>
-				<td colspan="2"></td>
+				<th class="text-right">Total Normal ${{total_normal}}</th>
+				<th><center><badge class="badge badge-danger rounded-pill d-inline">Anda hemat ${{potongan}} dari promo SALE</badge></center></th>
 				<th>Total</th>
 				<th>${{total_amt}}</th>
 			</tr>
+			{% else %}
+			<td colspan="2"></td>
+			<th>Total</th>
+			<th>${{total_amt}}</th>
+			{% endif %}
 			{% if totalitems %}
 			<tr>
 				<td colspan="4" align="right">
