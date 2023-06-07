@@ -238,9 +238,9 @@ $("#addForm").submit(function(e){
 
 				// Hide Modal
 				$("#productReview").modal('hide');
-
+				location.reload();
 				// AVg Rating
-				$(".avg-rating").text(res.avg_reviews.avg_rating.toFixed(1))
+				// $(".avg-rating").text(res.avg_reviews.avg_rating.toFixed(1))
 			}
 		}
 	});

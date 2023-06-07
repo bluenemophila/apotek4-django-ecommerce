@@ -13,9 +13,9 @@
 			<p class="text-success">{{msg}}</p>
 			{% endif %}
 			<table class="table table-bordered">
-				<form method="post">
+				<form method="post" autocomplete="off">
 					{% csrf_token %}
-					{{form.as_table}}
+					{{form.as_table | escape}}
 					<tr>
 						<td colspan="2">
 							<input type="submit" value="Save" class="btn btn-primary" />

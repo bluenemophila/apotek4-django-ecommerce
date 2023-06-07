@@ -13,6 +13,7 @@ from django.conf import settings
 from django.views.decorators.csrf import csrf_exempt
 from paypal.standard.forms import PayPalPaymentsForm
 from django.contrib import messages
+from django.utils.html import escape
 
 # Home Page
 def home(request):
@@ -69,12 +70,14 @@ def product_detail(request,slug,id):
 	#labels=Product.objects.filter(product=product).values('label__title').distinct()
 	reviewForm=ReviewAdd()
 
+	canAdd=False
+
 	# Check
-	canAdd=True
-	#reviewCheck=ProductReview.objects.filter(user=request.user,product=product).count()
-	#if request.user.is_authenticated:
-	#	if reviewCheck > 0:
-	#		canAdd=False
+	if request.user.is_authenticated:
+		canAdd=True
+		reviewCheck=ProductReview.objects.filter(user=request.user,product=product).count()
+		if reviewCheck > 0:
+			canAdd=False
 	# End
 
 	# Fetch reviews
@@ -316,7 +319,7 @@ def save_review(request,pid):
 		)
 	data={
 		'user':user.username,
-		'review_text':request.POST['review_text'],
+		'review_text':escape(request.POST['review_text']),
 		'review_rating':request.POST['review_rating']
 	}
 

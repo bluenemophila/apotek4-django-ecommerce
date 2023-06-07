@@ -5,6 +5,7 @@ chardet
 crispy-bootstrap5
 dj-database-url
 Django
+django-allauth
 django-crispy-forms
 django-environ
 django-heroku

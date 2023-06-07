@@ -27,7 +27,14 @@
 				</tr>
 				<tr>
 					<th>Harga</th>
-					<th>$<span class="product-price-{{data.id}}">{{data.productattribute_set.first.price}}</span></th>
+					<th> {% if data.productattribute_set.first.discount %}
+						<span class="discount-text">
+						  <del>$<span>{{data.productattribute_set.first.price}}</span></del>
+						</span>
+						<span class="discount-text">$<span class="product-price-{{data.id}}">{{data.productattribute_set.first.discount}}</span></span>
+						{% else %}
+						<span class="price-text">$<span class="product-price-{{data.id}}">{{data.productattribute_set.first.price}}</span></span>
+						{% endif %}</th>
 				</tr>
 			</table>
 			<hr/>

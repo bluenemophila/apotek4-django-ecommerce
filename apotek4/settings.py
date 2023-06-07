@@ -43,11 +43,23 @@ INSTALLED_APPS = [
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
+    'django.contrib.sites',
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'paypal.standard.ipn',
     'crispy_forms',
-    'crispy_bootstrap5'
+    'crispy_bootstrap5',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount'
+]
+
+AUTHENTICATION_BACKENDS = [
+    # Needed to login by username in Django admin, regardless of `allauth`
+    'django.contrib.auth.backends.ModelBackend',
+
+    # `allauth` specific authentication methods, such as login by e-mail
+    'allauth.account.auth_backends.AuthenticationBackend',
 ]
 
 MIDDLEWARE = [
@@ -121,6 +133,23 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
+
+ACCOUNT_LOGIN_ATTEMPTS_LIMIT = 5
+ACCOUNT_LOGIN_ATTEMPTS_TIMEOUT = 300
+ACCOUNT_RATE_LIMITS = {
+    # Change password view (for users already logged in)
+    "change_password": "5/m",
+    # Email management (e.g. add, remove, change primary)
+    "manage_email": "10/m",
+    # Request a password reset, global rate limit per IP
+    "reset_password": "20/m",
+    # Rate limit measured per individual email address
+    "reset_password_email": "5/m",
+    # Password reset (the view the password reset email links to).
+    "reset_password_from_key": "20/m",
+    # Signups.
+    "signup": "20/m"
+}
 
 
 # Internationalization

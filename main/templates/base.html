@@ -16,12 +16,12 @@
 	<link rel="stylesheet" type="text/css" href="{% static 'style.css' %}" />
 	<script type="text/javascript" src="{% static 'custom.js' %}"></script>
 </head>
-<body>
+<body onunload="">
 	<nav class="navbar navbar-expand-lg" style="background-color: #5CB4D8;">
 		<div class="container">
 			<a class="navbar-brand mt-2 mt-sm-0" href="/">
 				<img
-				src="../static/media/images/k4logo.png"
+				src="{% static 'media/images/k4logo.png' %}"
 				height="45"
 				alt="MDB Logo"
 				loading="lazy"
@@ -31,7 +31,7 @@
 		    <span class="navbar-toggler-icon"></span>
 		  </button>
 		  <div class="collapse navbar-collapse" id="navbarNav">
-		  	<form class="form-inline my-2 my-lg-0" action="/search">
+		  	<form class="form-inline my-2 my-lg-0" action="/search" autocomplete="off">
 		      <div class="input-group">
 				  <input name="q" type="text" class="form-control" placeholder="search" />
 				  <div class="input-group-append">
@@ -110,3 +110,16 @@
     </footer>
 </body>
 </html>
+
+<!--
+<script>
+	history.pushState(null, null, null);
+	window.addEventListener('popstate',function() {
+		history.pushState(null,null,null);
+	});
+</script>
+<script>
+	if (window.history.replaceState) {
+		window.history.replaceState(null, null, window.location.href)
+	}
+</script>-->

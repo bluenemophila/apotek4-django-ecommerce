@@ -7,10 +7,10 @@
 	<!-- Featured Products -->
 	<h3 class="my-4 border-bottom pb-1">Sign Up</h3>
 	<table class="table table-bordered">
-		<form method="post">
+		<form method="post" autocomplete="off">
 			{% include 'alert.html' %}
 			{% csrf_token %}
-			{{ form.as_table }}
+			{{ form.as_table | escape}}
 			<tr>
 				<td colspan="2">
 					<input type="submit" value="Register" class="btn btn-primary" />
