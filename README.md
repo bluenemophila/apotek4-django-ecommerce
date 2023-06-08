@@ -7,11 +7,13 @@ Our project, Apotek K4, was a wordplay on our team name, K4, based on an already
 Do this following to run the server on your local
 - Download the ZIP of this repository or clone using Git
 - Create environment and install the requirements.txt
-  ```py -m venv env_ecom
+  ```
+  py -m venv env_ecom
   env_ecom/Scripts/activate  
   pip install -r requirements.txt
 - Migrate the manage.py and runserver
-  ```py manage.py makemigrations
+  ```
+  py manage.py makemigrations
   py manage.py migrate
   py manage.py runserver
 - Open the server link on your browser
